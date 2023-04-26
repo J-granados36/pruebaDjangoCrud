@@ -1,0 +1,70 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestión de empleados {% endblock %}
+
+{% block body %}
+
+<div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <h2>Gestión de Empleados</h2>
+    <div class="card">
+        <div class="card-body">
+            <form action="/registrarEmpleado/" method="post">{% csrf_token %}
+                <div class="form-text">
+                    <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Codigo" minlength="6" maxlength="6" required>
+                </div>
+                <div class="form-text">
+                    <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre" minlength="6" maxlength="50" required>
+                </div>
+                <div class="form-text">
+                    <input type="text" id="txtTelefono" name="txtTelefono" class="form-control" placeholder="Telefono" minlength="6" maxlength="15" required>
+                </div>
+                <div class="form-text">
+                    <input type="text" id="numCedula" name="numCedula" class="form-control"  placeholder="Cedula" min="6" max="10" required>
+                </div>
+                <div class="form-text">
+                    <input type="text" id="txtCorreo" name="txtCorreo" class="form-control" placeholder="Correo" minlength="6" maxlength="30" required>
+                </div>
+                <div class="form-text">
+                    <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <h1>Listado Empleados</h1>
+    <div class="table-responsive py-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Telefono</th>
+                    <th>Cedula</th>
+                    <th>Correo</th>
+                    <th colspan="2"> Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in empleados%}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{e.codigo}}</td>
+                    <td>{{e.nombre}}</td>
+                    <td>{{e.telefono}}</td>
+                    <td>{{e.cedula}}</td>
+                    <td>{{e.correo}}</td>
+                    <td><a href="edicionEmpleado/{{e.codigo}}" class="btn btn-info">Editar</a></td>
+                    <td><a href="eliminarEmpleado/{{e.codigo}}" class="btn btn-danger">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+{% endblock %}
